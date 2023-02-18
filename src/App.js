@@ -17,7 +17,7 @@ function App() {
       <Component
         title="Opportunities"
         value="59"
-        accountNumber="42"
+        accountNuь="42"
         difference="10%"
         data={dataOpportunities}
       />
