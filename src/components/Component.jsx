@@ -16,9 +16,7 @@ import questionCircle from '../assets/question-circle.svg'
 export const Component = ({ data, title, value, accountNum, difference }) => {
   let total = 0
 
-  {
-    data.map((el, i) => (total += data[i].value))
-  }
+  data.map((el, i) => (total += data[i].value))
 
   const textStyle = {
     fontWeight: '400',
@@ -40,7 +38,6 @@ export const Component = ({ data, title, value, accountNum, difference }) => {
       <Box
         px="20px"
         w="380.33px"
-        h="200px"
         bg="#fff"
         borderRadius="10px"
         boxShadow="0px 1px 10px 1px rgba(0, 0, 0, 0.08)"
