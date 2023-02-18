@@ -9,25 +9,16 @@ import {
   Button,
 } from '@chakra-ui/react'
 import { useState } from 'react'
+
 import arrowUp from '../assets/arrowUp.svg'
 import questionCircle from '../assets/question-circle.svg'
 
-export const Component = ({ title, value, difference }) => {
-  const data = [
-    { value: 17, label: 'won', color: '#0D4D99' },
-    { value: 33, label: 'lost', color: '#2980E6' },
-    { value: 25, label: 'denied', color: 'red' },
-    { value: 21, label: 'confirmed', color: 'green' },
-    { value: 50, label: 'open', color: '#DCDCDC', isLight: true },
-  ]
-
+export const Component = ({ data, title, value, accountNum, difference }) => {
   let total = 0
 
   {
     data.map((el, i) => (total += data[i].value))
   }
-
-  const ratio = 340.33 / total
 
   const textStyle = {
     fontWeight: '400',
@@ -36,7 +27,7 @@ export const Component = ({ title, value, difference }) => {
     color: '#333',
   }
 
-  const helpTooltip = 'Total accounts on this site'
+  const helpTooltip = 'Number of registered accounts'
 
   const [isToggled, setToggled] = useState(false)
 
@@ -96,7 +87,7 @@ export const Component = ({ title, value, difference }) => {
               key={i}
               fontSize={isToggled ? '36px' : '16px'}
             >
-              <Box w={ratio * data[i].value} bg={data[i].color} />
+              <Box w={(340.33 / total) * data[i].value} bg={data[i].color} />
             </Tooltip>
           ))}
         </Flex>
@@ -122,7 +113,7 @@ export const Component = ({ title, value, difference }) => {
                 lineHeight="15px"
                 color="#0D4D99"
               >
-                42
+                {accountNum}
               </Text>
               <Text
                 fontWeight="400"
