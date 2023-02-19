@@ -135,7 +135,7 @@ export const Component = ({ data, title, value, accountNum, difference }) => {
         </Flex>
       </Box>
       <Button colorScheme="blue" onClick={handleToggle}>
-        {isToggled ? 'Уменьшить' : 'Увеличить'}
+        {isToggled ? 'Decrease' : 'Increase'}
       </Button>
     </VStack>
   )

@@ -1,6 +1,4 @@
 import { Flex } from '@chakra-ui/react'
-// import { Sidebar } from './Sidebar'
-// import { Content } from './Content'
 import { Component } from './components/Component'
 
 function App() {
