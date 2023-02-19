@@ -9,7 +9,6 @@ import {
   Button,
 } from '@chakra-ui/react'
 import { useState } from 'react'
-
 import arrowUp from '../assets/arrowUp.svg'
 import questionCircle from '../assets/question-circle.svg'
 
