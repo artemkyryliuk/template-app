@@ -1,18 +1,9 @@
-import {
-  VStack,
-  Box,
-  Text,
-  Flex,
-  Link,
-  Image,
-  Tooltip,
-  Button,
-} from '@chakra-ui/react'
-import { useState } from 'react'
-import arrowUp from '../assets/arrowUp.svg'
+import React from 'react'
+import { ReactComponent as ArrowIcon } from '../assets/arrowUp.svg'
+import { VStack, Box, Text, Flex, Link, Image, Tooltip } from '@chakra-ui/react'
 import questionCircle from '../assets/question-circle.svg'
 
-export const Component = ({ data, title, value, accountNum, difference }) => {
+export const InfoBlock = ({ data, title, value, accountNum, difference }) => {
   let total = 0
 
   data.map((el, i) => (total += data[i].value))
@@ -26,14 +17,8 @@ export const Component = ({ data, title, value, accountNum, difference }) => {
 
   const helpTooltip = 'Number of registered accounts'
 
-  const [isToggled, setToggled] = useState(false)
-
-  const handleToggle = () => {
-    setToggled(!isToggled)
-  }
-
   return (
-    <VStack spacing={5} transform={isToggled ? 'scale(3)' : 'scale(1)'}>
+    <VStack spacing={5}>
       <Box
         px="20px"
         w="380.33px"
@@ -64,38 +49,36 @@ export const Component = ({ data, title, value, accountNum, difference }) => {
               fontWeight="400"
               fontSize="12px"
               lineHeight="15px"
-              color="#00A875"
+              color={difference > 0 ? '#00A875' : 'red'}
             >
-              {difference}
+              {difference}%
             </Text>
-            <Image src={arrowUp} pointerEvents="none" />
+            <ArrowIcon />
           </Flex>
         </Flex>
         <Flex my="10px" h="8px" gap="1px">
-          {data.map((el, i) => (
+          {data.map((item) => (
             <Tooltip
-              bg={data[i].color}
-              color={data[i].isLight && '#000'}
-              label={`${((100 / total) * data[i].value).toFixed(1)}% ${
-                data[i].label
+              bg={item.color}
+              color={item.isLight && '#000'}
+              label={`${((100 / total) * item.value).toFixed(1)}% ${
+                item.label
               }`}
               placement="top"
-              key={i}
-              fontSize={isToggled ? '36px' : '16px'}
+              key={item}
             >
-              <Box w={(340.33 / total) * data[i].value} bg={data[i].color} />
+              <Box w={item.value * (340.33 / total)} bg={item.color} />
             </Tooltip>
           ))}
         </Flex>
         <Flex wrap="wrap" justify="stretch" gap="0px 30px">
-          {data.map((el, i) => {
+          {data.map((item) => {
             return (
-              <Flex align="center" gap="6px" key={i}>
-                <Box w="8px" h="8px" bg={data[i].color} />
-                <Text {...textStyle}>{`${(
-                  (100 / total) *
-                  data[i].value
-                ).toFixed(1)}% ${data[i].label}`}</Text>
+              <Flex align="center" gap="6px" key={item}>
+                <Box w="8px" h="8px" bg={item.color} />
+                <Text {...textStyle}>{`${(item.value * (100 / total)).toFixed(
+                  1
+                )}% ${item.label}`}</Text>
               </Flex>
             )
           })}
@@ -125,7 +108,6 @@ export const Component = ({ data, title, value, accountNum, difference }) => {
             label={helpTooltip}
             aria-label="Help Tooltip"
             placement="right-end"
-            fontSize={isToggled ? '36px' : '16px'}
           >
             <Box>
               <Image src={questionCircle} pointerEvents="none" />
@@ -133,9 +115,6 @@ export const Component = ({ data, title, value, accountNum, difference }) => {
           </Tooltip>
         </Flex>
       </Box>
-      <Button colorScheme="blue" onClick={handleToggle}>
-        {isToggled ? 'Decrease' : 'Increase'}
-      </Button>
     </VStack>
   )
 }
