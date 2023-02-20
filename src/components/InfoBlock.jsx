@@ -1,17 +1,13 @@
 import React from 'react'
-import { ReactComponent as ArrowIcon } from '../assets/arrowUp.svg'
+import { ReactComponent as ArrowIcon } from '../assets/arrow.svg'
 import { ReactComponent as QuestionIcon } from '../assets/question-circle.svg'
 import { VStack, Box, Text, Flex, Link } from '@chakra-ui/react'
 
-let total = 0
-export const reduce = ({ data }) => {
-  let array = data
-
-  array.reduce((acc, value) => (total = acc + value))
-}
-
 export const InfoBlock = ({ data, title, value, accountNum, difference }) => {
-  const textStyle = {
+  const array = data.slice(0)
+  const sum = data.reduce((a, b) => a + b.value, 0)
+
+  const text = {
     fontWeight: '400',
     fontSize: '12px',
     lineHeight: '15px',
@@ -54,28 +50,28 @@ export const InfoBlock = ({ data, title, value, accountNum, difference }) => {
             >
               {difference}%
             </Text>
-            <ArrowIcon />
+            <ArrowIcon fill="blue" />
           </Flex>
         </Flex>
         <Flex my="10px" h="8px" gap="1px">
-          {data.map((item) => (
-            <Box w={item.value * (340.33 / total)} bg={item.color} />
+          {array.map((item, i) => (
+            <Box w={`${(item.value / sum) * 100}%`} key={i} bg={item.color} />
           ))}
         </Flex>
         <Flex wrap="wrap" justify="stretch" gap="0px 30px">
-          {data.map((item) => {
+          {array.map((item, i) => {
             return (
-              <Flex align="center" gap="6px" key={item}>
+              <Flex align="center" gap="6px" key={i}>
                 <Box w="8px" h="8px" bg={item.color} />
-                <Text {...textStyle}>{`${((item.value / total) * 100).toFixed(
-                  1
-                )}% ${item.label}`}</Text>
+                <Text {...text}>{`${((item.value / sum) * 100).toFixed(1)}% ${
+                  item.label
+                }`}</Text>
               </Flex>
             )
           })}
         </Flex>
         <Flex align="center" my="20px" gap="4px">
-          <Link>
+          <Link _hover={{ textDecoration: 'none' }}>
             <Flex gap="4px" fontSize="12px" lineHeight="15px" color="#0D4D99">
               <Text fontWeight="700">{accountNum}</Text>
               <Text fontWeight="400">accounts in total</Text>
