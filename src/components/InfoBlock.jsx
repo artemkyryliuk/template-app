@@ -1,21 +1,22 @@
 import React from 'react'
 import { ReactComponent as ArrowIcon } from '../assets/arrowUp.svg'
-import { VStack, Box, Text, Flex, Link, Image, Tooltip } from '@chakra-ui/react'
-import questionCircle from '../assets/question-circle.svg'
+import { ReactComponent as QuestionIcon } from '../assets/question-circle.svg'
+import { VStack, Box, Text, Flex, Link } from '@chakra-ui/react'
+
+let total = 0
+export const reduce = ({ data }) => {
+  let array = data
+
+  array.reduce((acc, value) => (total = acc + value))
+}
 
 export const InfoBlock = ({ data, title, value, accountNum, difference }) => {
-  let total = 0
-
-  data.map((el, i) => (total += data[i].value))
-
   const textStyle = {
     fontWeight: '400',
     fontSize: '12px',
     lineHeight: '15px',
     color: '#333',
   }
-
-  const helpTooltip = 'Number of registered accounts'
 
   return (
     <VStack spacing={5}>
@@ -58,17 +59,7 @@ export const InfoBlock = ({ data, title, value, accountNum, difference }) => {
         </Flex>
         <Flex my="10px" h="8px" gap="1px">
           {data.map((item) => (
-            <Tooltip
-              bg={item.color}
-              color={item.isLight && '#000'}
-              label={`${((100 / total) * item.value).toFixed(1)}% ${
-                item.label
-              }`}
-              placement="top"
-              key={item}
-            >
-              <Box w={item.value * (340.33 / total)} bg={item.color} />
-            </Tooltip>
+            <Box w={item.value * (340.33 / total)} bg={item.color} />
           ))}
         </Flex>
         <Flex wrap="wrap" justify="stretch" gap="0px 30px">
@@ -76,7 +67,7 @@ export const InfoBlock = ({ data, title, value, accountNum, difference }) => {
             return (
               <Flex align="center" gap="6px" key={item}>
                 <Box w="8px" h="8px" bg={item.color} />
-                <Text {...textStyle}>{`${(item.value * (100 / total)).toFixed(
+                <Text {...textStyle}>{`${((item.value / total) * 100).toFixed(
                   1
                 )}% ${item.label}`}</Text>
               </Flex>
@@ -84,35 +75,13 @@ export const InfoBlock = ({ data, title, value, accountNum, difference }) => {
           })}
         </Flex>
         <Flex align="center" my="20px" gap="4px">
-          <Link _hover={{ color: '#0D4D99', textDecoration: 'none' }}>
-            <Flex gap="4px">
-              <Text
-                fontWeight="700"
-                fontSize="12px"
-                lineHeight="15px"
-                color="#0D4D99"
-              >
-                {accountNum}
-              </Text>
-              <Text
-                fontWeight="400"
-                fontSize="12px"
-                lineHeight="15px"
-                color="#0D4D99"
-              >
-                accounts in total
-              </Text>
+          <Link>
+            <Flex gap="4px" fontSize="12px" lineHeight="15px" color="#0D4D99">
+              <Text fontWeight="700">{accountNum}</Text>
+              <Text fontWeight="400">accounts in total</Text>
             </Flex>
           </Link>
-          <Tooltip
-            label={helpTooltip}
-            aria-label="Help Tooltip"
-            placement="right-end"
-          >
-            <Box>
-              <Image src={questionCircle} pointerEvents="none" />
-            </Box>
-          </Tooltip>
+          <QuestionIcon />
         </Flex>
       </Box>
     </VStack>
