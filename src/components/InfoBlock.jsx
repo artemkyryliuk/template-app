@@ -3,9 +3,9 @@ import { ReactComponent as ArrowIcon } from '../assets/arrow.svg'
 import { ReactComponent as QuestionIcon } from '../assets/question-circle.svg'
 import { VStack, Box, Text, Flex, Link } from '@chakra-ui/react'
 
-export const InfoBlock = ({ data, title, value, accountNum, difference }) => {
-  const array = data.slice(0)
-  const sum = data.reduce((a, b) => a + b.value, 0)
+export const InfoBlock = ({ steps, title, value, accountNum, difference }) => {
+  const array = steps.slice(0)
+  const sum = steps.reduce((a, b) => a + b.value, 0)
 
   const text = {
     fontWeight: '400',
@@ -50,7 +50,10 @@ export const InfoBlock = ({ data, title, value, accountNum, difference }) => {
             >
               {difference}%
             </Text>
-            <ArrowIcon fill="blue" />
+            <ArrowIcon
+              fill={difference > 0 ? '#00A875' : 'red'}
+              transform={difference > 0 ? 'rotate(0)' : 'rotate(180)'}
+            />
           </Flex>
         </Flex>
         <Flex my="10px" h="8px" gap="1px">

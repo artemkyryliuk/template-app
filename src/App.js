@@ -9,8 +9,8 @@ function App() {
         title="Opportunities"
         value={59}
         accountNum={42}
-        difference={10}
-        data={opportunities}
+        difference={-10}
+        steps={opportunities}
       />
     </Flex>
   )
